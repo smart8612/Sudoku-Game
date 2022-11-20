@@ -106,3 +106,4 @@ class MainWindow(QMainWindow):
     def __pane_value_changed_handler(self):
         pane = self.__get_pane()
         self.controller.set_pane(pane)
+        self.__set_pane(pane)
