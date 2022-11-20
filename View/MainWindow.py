@@ -39,10 +39,10 @@ class MainWindow(QMainWindow):
     def __configure_sudoku_pane(self):
         self.game_pane_layout = QGridLayout()
         max_size = 4
-        inputs = [[QLineEdit() for _ in range(max_size)] for _ in range(max_size)]
+        self.inputs = [[QLineEdit() for _ in range(max_size)] for _ in range(max_size)]
         for row in range(max_size):
             for col in range(max_size):
-                self.game_pane_layout.addWidget(inputs[row][col], row, col)
+                self.game_pane_layout.addWidget(self.inputs[row][col], row, col)
 
     def __configure_control_buttons(self):
         self.control_buttons_layout = QHBoxLayout()
@@ -53,4 +53,25 @@ class MainWindow(QMainWindow):
             button.clicked.connect(self.__button_clicked)
 
     def __button_clicked(self):
-        print("Button was clicked")
+        pane = self.get_pane()
+        print(pane)
+
+    def set_pane(self, pane):
+        max_size = 4
+        for row in range(max_size):
+            for col in range(max_size):
+                line_edit = QLineEdit(self.game_pane_layout.itemAtPosition(row, col))
+                line_edit.setText(str(pane[row][col]))
+
+    def get_pane(self) -> list:
+        pane = []
+        max_size = 4
+
+        for row in range(max_size):
+            row_values = []
+            for col in range(max_size):
+                line_edit = self.inputs[row][col]
+                row_values.append(int(line_edit.text()))
+            pane.append(row_values)
+
+        return pane
