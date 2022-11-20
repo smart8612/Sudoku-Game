@@ -43,7 +43,7 @@ class MainWindow(QMainWindow):
 
     def __configure_sudoku_pane(self):
         self.game_pane_layout = QGridLayout()
-        max_size = 4
+        max_size = self.controller.get_max_size()
         self.inputs = [[QLineEdit() for _ in range(max_size)] for _ in range(max_size)]
         for row in range(max_size):
             for col in range(max_size):
@@ -70,7 +70,7 @@ class MainWindow(QMainWindow):
             self.status_label.setText("Sudoku Complete: Fail")
 
     def __set_pane(self, pane):
-        max_size = 4
+        max_size = self.controller.get_max_size()
         for row in range(max_size):
             for col in range(max_size):
                 line_edit = self.inputs[row][col]
@@ -78,7 +78,7 @@ class MainWindow(QMainWindow):
 
     def __get_pane(self) -> list:
         pane = []
-        max_size = 4
+        max_size = self.controller.get_max_size()
 
         for row in range(max_size):
             row_values = []
@@ -87,6 +87,7 @@ class MainWindow(QMainWindow):
                 text_value = line_edit.text()
                 try:
                     int_text_value = 0 if text_value == '' else int(text_value)
+                    int_text_value = int_text_value if 0 <= int_text_value <= max_size else 0
                 except ValueError:
                     int_text_value = 0
                 row_values.append(int_text_value)
@@ -107,3 +108,4 @@ class MainWindow(QMainWindow):
         pane = self.__get_pane()
         self.controller.set_pane(pane)
         self.__set_pane(pane)
+        self.__update_ui()
