@@ -1,7 +1,8 @@
 import copy
 
+
 class SudokuGame:
-    pane = [[]]
+    pane = []
 
     def __init__(self):
         print("Init sudoku game")
@@ -9,10 +10,9 @@ class SudokuGame:
     def run(self):
         print("Run sudoku game")
 
-    def write(self, pane):
+    def write(self, pane) -> None:
         self.pane = copy.deepcopy(pane)
 
-    def solve(self):
+    def solve(self) -> bool:
         print("solve")
-
-SudokuGame()
+        return True
