@@ -1,3 +1,5 @@
+import copy
+
 class SudokuGame:
     pane = [[]]
 
@@ -8,7 +10,7 @@ class SudokuGame:
         print("Run sudoku game")
 
     def write(self, pane):
-        print("Write sudoku game pane")
+        self.pane = copy.deepcopy(pane)
 
     def solve(self):
         print("solve")
