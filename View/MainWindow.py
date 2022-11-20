@@ -47,20 +47,16 @@ class MainWindow(QMainWindow):
     def __configure_control_buttons(self):
         self.control_buttons_layout = QHBoxLayout()
 
-        buttons = [QPushButton("Start"), QPushButton("Reset")]
+        buttons = [QPushButton("Solve"), QPushButton("Reset")]
         for button in buttons:
             self.control_buttons_layout.addWidget(button)
-            button.clicked.connect(self.__button_clicked)
-
-    def __button_clicked(self):
-        pane = self.get_pane()
-        print(pane)
+        buttons[1].clicked.connect(self.__reset_pane)
 
     def set_pane(self, pane):
         max_size = 4
         for row in range(max_size):
             for col in range(max_size):
-                line_edit = QLineEdit(self.game_pane_layout.itemAtPosition(row, col))
+                line_edit = self.inputs[row][col]
                 line_edit.setText(str(pane[row][col]))
 
     def get_pane(self) -> list:
@@ -80,3 +76,8 @@ class MainWindow(QMainWindow):
             pane.append(row_values)
 
         return pane
+
+    def __reset_pane(self):
+        max_size = 4
+        pane = [[0 for _ in range(max_size)] for _ in range(max_size)]
+        self.set_pane(pane)
