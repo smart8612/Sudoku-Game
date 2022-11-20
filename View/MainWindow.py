@@ -3,13 +3,17 @@ from PyQt6.QtWidgets import QPushButton, QLineEdit
 from PyQt6.QtWidgets import QLabel
 from PyQt6.QtWidgets import QHBoxLayout, QVBoxLayout, QGridLayout
 from PyQt6.QtCore import QSize
+from Controller.Controller import Controller
 
 
 class MainWindow(QMainWindow):
+    controller = Controller()
+
     def __init__(self):
         super().__init__()
         self.setFixedSize(QSize(300, 450))
         self.__configure_layout()
+        self.__update_ui()
 
     def __configure_layout(self):
         self.layout = QVBoxLayout()
@@ -52,6 +56,10 @@ class MainWindow(QMainWindow):
             self.control_buttons_layout.addWidget(button)
         buttons[1].clicked.connect(self.__reset_pane)
 
+    def __update_ui(self):
+        pane = self.controller.get_pane()
+        self.set_pane(pane)
+
     def set_pane(self, pane):
         max_size = 4
         for row in range(max_size):
@@ -78,6 +86,5 @@ class MainWindow(QMainWindow):
         return pane
 
     def __reset_pane(self):
-        max_size = 4
-        pane = [[0 for _ in range(max_size)] for _ in range(max_size)]
-        self.set_pane(pane)
+        self.controller.reset()
+        self.__update_ui()

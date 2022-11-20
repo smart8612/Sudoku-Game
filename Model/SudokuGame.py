@@ -10,7 +10,7 @@ class SudokuGame:
 
     def __init__(self):
         self.pane = [
-            [self.UNASSIGNED]*self.MAX_SIZE for _ in range(self.MAX_SIZE)
+            [self.UNASSIGNED for _ in range(self.MAX_SIZE)] for _ in range(self.MAX_SIZE)
         ]
 
     def write(self, pane) -> None:
