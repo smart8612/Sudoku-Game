@@ -8,6 +8,7 @@ from Controller.Controller import Controller
 
 class MainWindow(QMainWindow):
     controller = Controller()
+    is_success = None
 
     def __init__(self):
         super().__init__()
@@ -38,7 +39,7 @@ class MainWindow(QMainWindow):
         self.title_label = QLabel("[ Sudoku Game Solver ]")
 
     def __configure_status_label(self):
-        self.status_label = QLabel("Sudoku Game Status Label")
+        self.status_label = QLabel()
 
     def __configure_sudoku_pane(self):
         self.game_pane_layout = QGridLayout()
@@ -47,6 +48,7 @@ class MainWindow(QMainWindow):
         for row in range(max_size):
             for col in range(max_size):
                 self.game_pane_layout.addWidget(self.inputs[row][col], row, col)
+                self.inputs[row][col].textChanged.connect(self.__pane_value_changed_handler)
 
     def __configure_control_buttons(self):
         self.control_buttons_layout = QHBoxLayout()
@@ -54,11 +56,18 @@ class MainWindow(QMainWindow):
         buttons = [QPushButton("Solve"), QPushButton("Reset")]
         for button in buttons:
             self.control_buttons_layout.addWidget(button)
-        buttons[1].clicked.connect(self.__reset_pane)
+        buttons[0].clicked.connect(self.__solve_button_clicked)
+        buttons[1].clicked.connect(self.__reset_button_clicked)
 
     def __update_ui(self):
         pane = self.controller.get_pane()
         self.__set_pane(pane)
+        if self.is_success is None:
+            self.status_label.setText("Write Your Sudoku Problem")
+        elif self.is_success is True:
+            self.status_label.setText("Sudoku Complete: Success")
+        elif self.is_success is False:
+            self.status_label.setText("Sudoku Complete: Fail")
 
     def __set_pane(self, pane):
         max_size = 4
@@ -85,6 +94,15 @@ class MainWindow(QMainWindow):
 
         return pane
 
-    def __reset_pane(self):
+    def __reset_button_clicked(self):
         self.controller.reset()
+        self.is_success = None
         self.__update_ui()
+
+    def __solve_button_clicked(self):
+        self.is_success = self.controller.solve()
+        self.__update_ui()
+
+    def __pane_value_changed_handler(self):
+        pane = self.__get_pane()
+        self.controller.set_pane(pane)
