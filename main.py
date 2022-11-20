@@ -1,4 +1,4 @@
-import SupportingFiles.AppDelegate
+from SupportingFiles.AppDelegate import AppDelegate
 
 if __name__ == "__main__":
-    app = SupportingFiles.AppDelegate.AppDelegate()
+    app = AppDelegate()
