@@ -58,16 +58,16 @@ class MainWindow(QMainWindow):
 
     def __update_ui(self):
         pane = self.controller.get_pane()
-        self.set_pane(pane)
+        self.__set_pane(pane)
 
-    def set_pane(self, pane):
+    def __set_pane(self, pane):
         max_size = 4
         for row in range(max_size):
             for col in range(max_size):
                 line_edit = self.inputs[row][col]
                 line_edit.setText(str(pane[row][col]))
 
-    def get_pane(self) -> list:
+    def __get_pane(self) -> list:
         pane = []
         max_size = 4
 
