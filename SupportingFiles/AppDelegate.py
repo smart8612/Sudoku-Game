@@ -7,7 +7,7 @@ class AppDelegate:
     app = QApplication(sys.argv)
     window = MainWindow()
 
-    __window_title = "Sudoku Game"
+    __window_title = "Sudoku Game Solver"
 
     def __init__(self):
         self.__configure()

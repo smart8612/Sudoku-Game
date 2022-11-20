@@ -31,7 +31,7 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.widget)
 
     def __configure_title_label(self):
-        self.title_label = QLabel("[ Sudoku Game ]")
+        self.title_label = QLabel("[ Sudoku Game Solver ]")
 
     def __configure_status_label(self):
         self.status_label = QLabel("Sudoku Game Status Label")
@@ -71,7 +71,12 @@ class MainWindow(QMainWindow):
             row_values = []
             for col in range(max_size):
                 line_edit = self.inputs[row][col]
-                row_values.append(int(line_edit.text()))
+                text_value = line_edit.text()
+                try:
+                    int_text_value = 0 if text_value == '' else int(text_value)
+                except ValueError:
+                    int_text_value = 0
+                row_values.append(int_text_value)
             pane.append(row_values)
 
         return pane
