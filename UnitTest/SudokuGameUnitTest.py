@@ -28,9 +28,7 @@ class MyTestCase(unittest.TestCase):
                 for col in range(0, 4):
                     game_pane_value = self.game.pane[row][col]
                     test_pane_value = pane[row][col]
-                    if game_pane_value != test_pane_value:
-                        self.assertFalse()
-        self.assertTrue()
+                    self.assertEqual(game_pane_value, test_pane_value)
 
 
 if __name__ == '__main__':
