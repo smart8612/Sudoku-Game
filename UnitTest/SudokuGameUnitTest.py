@@ -34,7 +34,7 @@ class MyTestCase(unittest.TestCase):
                     test_pane_value = pane[row][col]
                     self.assertEqual(game_pane_value, test_pane_value)
 
-    def test_입력된_수도쿠_판이_완성될_수_있는지_검증_한다(self):
+    def test_can_complete(self):
         for pane in self.testCase:
             self.game.write(pane)
             is_success = self.game.solve()
