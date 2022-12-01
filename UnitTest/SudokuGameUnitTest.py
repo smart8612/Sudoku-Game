@@ -24,7 +24,7 @@ class MyTestCase(unittest.TestCase):
     def tearDown(self) -> None:
         del self.game
 
-    def test_4by4_수도쿠_판이_입력_되면_동일한_판을_반환_해야_한다(self):
+    def test_4by4_enter_same_return(self):
         for pane in self.testCase:
             self.game.write(pane)
 
